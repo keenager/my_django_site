@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="container my-3">
+    <h1 class="text-center">국선 일정 👉 구글 캘린더</h1>
+    {% if message %}
+    <div class="alert alert-danger" role="alert">
+      {{ message }}
+    </div>
+    {% endif %}
+    <form action="{% url 'public_def:api_request' %}" method="post">
+      {% csrf_token %}
+      <label for="id">아이디</label>
+      <input class="form-control" name="id" id="id">
+      <label for="password" class="mt-3">비밀번호</label>
+      <input class="form-control" type="password" name="password" id="password">
+      <input type="submit" class="btn btn-primary mt-3 float-end" value="시작">
+    </form>
+  </div>
+
+{% endblock content %}

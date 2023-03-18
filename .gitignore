@@ -1,0 +1,16 @@
+.idea
+db.sqlite3
+*.pyc
+__pycache__
+staticfiles/
+.DS_Store
+logs/
+
+venv/
+.venv/
+env/
+.env/
+*.env
+
+credentials.json
+chromedriver
