@@ -28,8 +28,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "public-def.fly.dev"]
-CSRF_TRUSTED_ORIGINS = ["https://public-def.fly.dev"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "34.127.73.36"]
+CSRF_TRUSTED_ORIGINS = []
 
 # Application definition
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'public_def.apps.PublicDefConfig',
+    'habit_record.apps.HabitRecordConfig',
 ]
 
 MIDDLEWARE = [
