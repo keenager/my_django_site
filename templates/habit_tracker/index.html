@@ -13,7 +13,9 @@
     {% endif %}
 
     <!-- 픽셀 그래프 -->
-    <iframe src="https://pixe.la/v1/users/redtraining/graphs/{{ graph_id }}.html?mode=simple" height="155" width="720" frameborder="0"></iframe>
+    <div class="d-flex justify-content-center mb-3">
+      <iframe src="https://pixe.la/v1/users/redtraining/graphs/{{ graph_id }}.html?mode=simple" height="155" width="720" frameborder="0"></iframe>
+    </div>
 
     <!-- 메시지 -->
     {% if messages %}
