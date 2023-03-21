@@ -4,8 +4,8 @@ import config.settings
 import google_auth_oauthlib.flow
 import google.oauth2.credentials
 import googleapiclient.discovery
-from public_def.calendar.get_data import getData, LoginError
-from public_def.calendar.insert_schedule import insert_event
+from public_def.functions.get_data import getData, LoginError
+from public_def.functions.insert_schedule import insert_event
 import os
 import requests
 from requests import Response

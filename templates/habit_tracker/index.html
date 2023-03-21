@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container my-3">
+    <h1 class="d-flex justify-content-center">습관 기록</h1>
+
+    <!-- 그래프 리스트 -->
+    {% if graph_list %}
+      <div class="d-flex justify-content-center mb-3">
+        {% for graph in graph_list %}
+          <a class="badge rounded-pill bg-secondary mx-1" href="{% url 'habit:index' %}?graph_id={{ graph.id }}">{{ graph.name }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- 픽셀 그래프 -->
+    <iframe src="https://pixe.la/v1/users/redtraining/graphs/{{ graph_id }}.html?mode=simple" height="155" width="720" frameborder="0"></iframe>
+
+    <!-- 메시지 -->
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <!-- 픽셀 -->
+    <form action="{% url 'habit:add_pixel' %}" method="post" class="my-2">
+      {% csrf_token %}
+      <input type="hidden" name="graph_id" value="{{ graph_id }}">
+      <div class="form-group mb-1">
+        <label for="date">언제?</label>
+        <input type="date" class="form-control" name="date" id="date" value="{{ today }}">
+      </div>
+      <div class="form-group">
+        <label for="quantity">얼마나?</label>
+        <input type="number" class="form-control" name="quantity" id="quantity">
+      </div>
+      <!-- 픽셀 저장 -->
+      <div class="float-end">
+        <button type="submit" class="btn btn-primary mt-2">저장</button>
+      </div>
+    </form>
+
+    <!-- 픽셀 삭제 -->
+    <form action="{% url 'habit:delete_pixel' %}" method="post" id="delPixelForm" class="mb-3">
+      {% csrf_token %}
+      <input type="hidden" name="graph_id" value="{{ graph_id }}">
+      <input type="hidden" name="date">
+      <button type="button" class="delete btn btn-sm btn-outline-secondary">삭제</button>
+    </form>
+
+    <!-- 그래프 -->
+    <div class="mb-3">
+      <!-- 그래프 추가 -->
+      <a href="{% url 'habit:create_graph' %}" class="btn btn-sm btn-primary mb-1">그래프 추가</a>
+      <!-- 그래프 삭제 -->
+      <form action="{% url 'habit:delete_graph' %}" method="post" id="delGraphForm">
+        {% csrf_token %}
+        <input type="hidden" name="graph_id" value="{{ graph_id }}">
+        <button type="button" class="delete btn btn-sm btn-outline-secondary">그래프 삭제</button>
+      </form>
+    </div>
+    <!-- 홈으로 -->
+    <div class="d-flex justify-content-center">
+      <a href="{% url 'index' %}">홈으로</a>
+    </div>
+  </div>
+
+{% endblock content %}
+{% block script %}
+  <script type="text/javascript">
+    delButtons = document.getElementsByClassName('delete');
+    Array
+      .from(delButtons)
+      .forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (confirm('삭제하시겠습니까?')) {
+            let date = document
+              .getElementById('date')
+              .value;
+            let dateInputElem = document.querySelector('#delPixelForm > input[name=date]');
+            dateInputElem.value = date
+            btn
+              .parentElement
+              .submit();
+          }
+        });
+      });
+  </script>
+{% endblock script %}
