@@ -21,6 +21,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('common/', include('common.urls')),
     path('habit/', include('habit_record.urls')),
     # path('public_def/', include('public_def.urls')),
 ]

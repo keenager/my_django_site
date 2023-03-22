@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.utils import timezone
 from dotenv import load_dotenv
@@ -20,6 +21,7 @@ headers = {
     'X-USER-TOKEN': PIXELA_TOKEN}
 
 
+@login_required(login_url='common:login')
 def index(request: HttpRequest):
     try:
         res = requests.get(
@@ -38,6 +40,7 @@ def index(request: HttpRequest):
     return render(request, 'habit_tracker/index.html', context)
 
 
+@login_required(login_url='common:login')
 def create_graph(request: HttpRequest):
     if request.method == 'POST':
         req_body = {
@@ -68,6 +71,7 @@ def create_graph(request: HttpRequest):
     return render(request, 'habit_tracker/create_graph.html', {'colors': colors})
 
 
+@login_required(login_url='common:login')
 def add_pixel(request: HttpRequest):
     graph_id = request.POST.get('graph_id')
     date = ''.join(request.POST.get('date').split('-'))
@@ -87,6 +91,7 @@ def add_pixel(request: HttpRequest):
     return redirect(reverse('habit:index') + '?graph_id=' + graph_id)
 
 
+@login_required(login_url='common:login')
 def delete_pixel(request: HttpRequest):
     graph_id = request.POST.get('graph_id')
     date = ''.join(request.POST.get('date').split('-'))
@@ -101,6 +106,7 @@ def delete_pixel(request: HttpRequest):
     return redirect(reverse('habit:index') + '?graph_id=' + graph_id)
 
 
+@login_required(login_url='common:login')
 def delete_graph(request: HttpRequest):
     graph_id = request.POST.get('graph_id')
     token = request.POST.get('token')

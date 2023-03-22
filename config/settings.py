@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'habit_record.apps.HabitRecordConfig',
+    'common.apps.CommonConfig',
 ]
 
 MIDDLEWARE = [
