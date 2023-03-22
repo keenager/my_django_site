@@ -103,9 +103,10 @@ def delete_pixel(request: HttpRequest):
 
 def delete_graph(request: HttpRequest):
     graph_id = request.POST.get('graph_id')
+    token = request.POST.get('token')
     res = requests.delete(
         f'{pixela_endpoint}/{USER_NAME}/graphs/{graph_id}',
-        headers=headers,
+        headers={'X-USER-TOKEN': token},
     )
     make_messages(request, res)
 

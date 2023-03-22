@@ -62,7 +62,8 @@
       <form action="{% url 'habit:delete_graph' %}" method="post" id="delGraphForm">
         {% csrf_token %}
         <input type="hidden" name="graph_id" value="{{ graph_id }}">
-        <button type="button" class="delete btn btn-sm btn-outline-secondary">그래프 삭제</button>
+        <input type="hidden" name="token">
+        <button type="button" class="delete delete-graph btn btn-sm btn-outline-secondary">그래프 삭제</button>
       </form>
     </div>
     <!-- 홈으로 -->
@@ -80,11 +81,21 @@
       .forEach((btn) => {
         btn.addEventListener('click', () => {
           if (confirm('삭제하시겠습니까?')) {
-            let date = document
-              .getElementById('date')
-              .value;
-            let dateInputElem = document.querySelector('#delPixelForm > input[name=date]');
-            dateInputElem.value = date
+            if (btn.className.includes('graph')) {
+              token = prompt('토큰을 입력하세요: ');
+              if(token == '' | token == null) return;
+              document
+                .querySelector('input[name=token]')
+                .value = token;
+            } else {
+              let date = document
+                .getElementById('date')
+                .value;
+              document
+                .querySelector('#delPixelForm > input[name=date]')
+                .value = date;
+            }
+
             btn
               .parentElement
               .submit();
