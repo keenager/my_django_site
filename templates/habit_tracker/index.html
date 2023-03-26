@@ -56,6 +56,10 @@
 
     <!-- 그래프 -->
     <div class="mb-3">
+      <!-- 디테일 -->
+      <div class="d-flex justify-content-center">
+        <a class="btn btn-link" href="https://pixe.la/v1/users/redtraining/graphs/{{ graph_id }}.html">그래프 디테일</a>
+      </div>
       <!-- 그래프 추가 -->
       <a href="{% url 'habit:create_graph' %}" class="btn btn-sm btn-primary mb-1">그래프 추가</a>
       <!-- 그래프 삭제 -->
@@ -65,10 +69,6 @@
         <input type="hidden" name="token">
         <button type="button" class="delete delete-graph btn btn-sm btn-outline-secondary">그래프 삭제</button>
       </form>
-    </div>
-    <!-- 홈으로 -->
-    <div class="d-flex justify-content-center">
-      <a href="{% url 'index' %}">홈으로</a>
     </div>
   </div>
 
@@ -83,7 +83,8 @@
           if (confirm('삭제하시겠습니까?')) {
             if (btn.className.includes('graph')) {
               token = prompt('토큰을 입력하세요: ');
-              if(token == '' | token == null) return;
+              if (token == '' | token == null) 
+                return;
               document
                 .querySelector('input[name=token]')
                 .value = token;

@@ -12,7 +12,10 @@
         <label for="password">비밀번호</label>
         <input type="password" class="form-control" name="password" id="password" value="{{ form.password.value|default_if_none:'' }}">
       </div>
-      <button type="submit" class="btn btn-primary">로그인</button>
+      <input type="hidden" name="next" value="{{ request.GET.next }}">
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">로그인</button>
+      </div>
     </form>
   </div>
 {% endblock content %}
