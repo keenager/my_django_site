@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'habit_record.apps.HabitRecordConfig',
     'common.apps.CommonConfig',
+    'habit_record.apps.HabitRecordConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
