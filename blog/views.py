@@ -10,6 +10,9 @@ from .forms import BlogPostForm
 
 def index(request):
     posts = BlogPost.objects.all()
+    for post in posts:
+        print(post.pub_date.date())
+        post.pub_date = post.pub_date.date()
     return render(request, 'blog/index.html', {'posts': posts})
 
 
