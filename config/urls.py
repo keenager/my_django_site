@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('common/', include('common.urls')),
-    path('habit/', include('habit_record.urls')),
+    path('habit/', include('habit_tracker.urls')),
     path('blog/', include('blog.urls')),
     # path('public_def/', include('public_def.urls')),
 ]

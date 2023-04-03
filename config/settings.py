@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'common.apps.CommonConfig',
-    'habit_record.apps.HabitRecordConfig',
+    'habit_tracker.apps.HabitTrackerConfig',
     'blog.apps.BlogConfig',
 ]
 

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class HabitRecordConfig(AppConfig):
+class HabitTrackerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'habit_record'
+    name = 'habit_tracker'
