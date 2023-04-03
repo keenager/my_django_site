@@ -35,7 +35,7 @@
       {% endif %}
     </div>
     <!-- 본문 -->
-    <p>{{ post.content|mark|safe }}</p>
+    <p>{{ post.content|mark }}</p>
     <div class="text-center">
       <a href="{% url 'blog:index' %}">목록으로</a>
     </div>

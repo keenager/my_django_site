@@ -1,4 +1,4 @@
-import markdown
+from markdown import Markdown
 from django import template
 from django.utils.safestring import mark_safe
 
@@ -7,5 +7,8 @@ register = template.Library()
 
 @register.filter
 def mark(value):
-    extentions = ['nl2br', 'fenced_code']
-    return mark_safe(markdown.markdown(value, extentions=extentions))
+    extentions = ['nl2br', 'fenced_code',
+                  'markdown_del_ins', 'attr_list', 'toc']
+    md = Markdown(extensions=extentions)
+    html = md.convert(value)
+    return mark_safe(html)
