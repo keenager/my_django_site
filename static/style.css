@@ -4,3 +4,27 @@ blockquote {
   color: #819198;
   border-left: 0.3rem solid #dce6f0;
 }
+
+.toc {
+  display: inline-block;
+  padding-top: 16px;
+  padding-right: 20px;
+  margin-bottom: 30px;
+}
+
+.toc ul {
+  list-style-type: none;
+  padding-inline-start: 2ch;
+}
+
+a.headerlink {
+  visibility: hidden;
+}
+
+h1:hover > a.headerlink,
+h2:hover > a.headerlink,
+h3:hover > a.headerlink,
+h4:hover > a.headerlink,
+h5:hover > a.headerlink {
+  visibility: visible;
+}
