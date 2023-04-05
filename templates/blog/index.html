@@ -21,7 +21,7 @@
               <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
             </td>
             <td>{{ post.author }}</td>
-            <td>{{ post.pub_date }}</td>
+            <td>{{ post.pub_date|date:"DATE_FORMAT" }}</td>
           </tr>
         {% endfor %}
       </tbody>
