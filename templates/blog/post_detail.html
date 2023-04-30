@@ -49,5 +49,10 @@
         location.href = e.currentTarget.dataset.uri;
       }
     });
+
+    tables = document.querySelectorAll('table');
+    for(table of tables){
+      table.classList.add('table');
+    }
   </script>
 {% endblock script %}

@@ -10,7 +10,7 @@ register = template.Library()
 def mark(value):
     toc = TocExtension(toc_class='toc card', permalink=True)
     extentions = ['nl2br', 'fenced_code',
-                  'markdown_del_ins', 'attr_list', toc]
+                  'markdown_del_ins', 'attr_list', toc, 'tables']
     md = Markdown(extensions=extentions)
     html = md.convert(value)
     return mark_safe(html)
