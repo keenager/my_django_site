@@ -3,14 +3,20 @@ from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.core.paginator import Paginator
 from .models import BlogPost
 from .forms import BlogPostForm
 # Create your views here.
 
 
-def index(request):
-    posts = BlogPost.objects.all()
-    return render(request, 'blog/index.html', {'posts': posts})
+def index(request: HttpRequest):
+    all_posts = BlogPost.objects.order_by('-pub_date')
+    paginator = Paginator(all_posts, 5)
+    page_number = request.GET.get('page')
+    if not page_number:
+        page_number = 1
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'blog/index.html', {'page_obj': page_obj})
 
 
 def post_detail(request, post_id):

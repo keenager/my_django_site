@@ -4,6 +4,7 @@
     <div class="my-3 text-center">
       <h1>블로그</h1>
     </div>
+    <!-- 테이블 -->
     <table class="table text-center table-hover">
       <thead>
         <tr>
@@ -14,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for post in posts %}
+        {% for post in page_obj %}
           <tr>
             <th scope="row">{{ post.pk }}</th>
             <td>
@@ -26,8 +27,64 @@
         {% endfor %}
       </tbody>
     </table>
-    <div class="d-flex justify-content-end">
-      <a href="{% url 'blog:post_create' %}" class="btn btn-primary">글쓰기</a>
+    <!-- pagination -->
+    <nav aria-label="page navigation">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1">처음</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">이전</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link">처음</span></li>
+          <li class="page-item disabled">
+            <span class="page-link">이전</span></li>
+        {% endif %}
+        {% for page in page_obj.paginator.page_range %}
+          <!-- 6페이지 앞으로 이동 버튼 -->
+          {% if page == page_obj.number|add:-6 %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.number|add:-6 }}">...</a>
+            </li>
+          {% endif %}
+          <!-- 전후 5페이지 표시 -->
+          {% if page_obj.number|add:-5 <= page and page <= page_obj.number|add:5 %}
+            {% if page_obj.number == page %}
+              <li class="page-item active">
+            {% else %}
+              <li class="page-item">
+            {% endif %}
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+          {% endif %}
+          <!-- 6페이지 뒤로 이동 버튼 -->
+          {% if page == page_obj.number|add:6 %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.number|add:6 }}">...</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+          <!-- <li class="page-item"> <span class="page-link"> {{ page_obj.number }} / {{ page_obj.paginator.num_pages }} page </span> </li> -->
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">다음</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">마지막</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">다음</span></li>
+            <li class="page-item disabled">
+              <span class="page-link">마지막</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+      <div class="d-flex justify-content-end">
+        <a href="{% url 'blog:post_create' %}" class="btn btn-primary">글쓰기</a>
+      </div>
     </div>
-  </div>
-{% endblock content %}
+  {% endblock content %}
