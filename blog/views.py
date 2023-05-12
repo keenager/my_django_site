@@ -11,12 +11,34 @@ from .forms import BlogPostForm
 
 def index(request: HttpRequest):
     all_posts = BlogPost.objects.order_by('-pub_date')
-    paginator = Paginator(all_posts, 5)
+
+    selected_tag = request.GET.get('tag')
+    if selected_tag:
+        selected_posts = BlogPost.objects.filter(
+            tag__contains=selected_tag).order_by('-pub_date')
+    else:
+        selected_posts = all_posts
+
+    # 페이지네이션
+    paginator = Paginator(selected_posts, 5)
     page_number = request.GET.get('page')
     if not page_number:
         page_number = 1
     page_obj = paginator.get_page(page_number)
-    return render(request, 'blog/index.html', {'page_obj': page_obj})
+
+    # 태그
+    tag_list = []
+    for post in all_posts:
+        tag_list += post.tag.replace(' ', '').split(',')
+    tags = set(tag_list)
+
+    context = {
+        'page_obj': page_obj,
+        'tags': tags,
+        'selected_tag': selected_tag
+    }
+
+    return render(request, 'blog/index.html', context)
 
 
 def post_detail(request, post_id):
