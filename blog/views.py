@@ -17,6 +17,7 @@ def index(request: HttpRequest):
         selected_posts = BlogPost.objects.filter(
             tag__contains=selected_tag).order_by('-pub_date')
     else:
+        selected_tag = ''
         selected_posts = all_posts
 
     # 페이지네이션
