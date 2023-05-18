@@ -14,7 +14,8 @@
           <a class="nav-link" href="{% url 'common:logout' %}">로그아웃</a>
         {% else %}
           <a class="offcanvas-title nav-link" href="{% url 'common:login' %}">로그인</a>
-        {% endif %}
+          <a class="offcanvas-title nav-link" href="{% url 'common:signup' %}">회원가입</a>
+          {% endif %}
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <!-- 바디 -->
