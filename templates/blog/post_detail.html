@@ -14,7 +14,12 @@
       </div>
     {% endif %}
     <!-- 제목 -->
-    <h1 class="my-3 text-center">{{ post.title }}</h1>
+    <div class="my-3 text-center">
+      <h1 style="display: inline-block">{{ post.title }}</h1>
+      {% if post.private %}
+        <span class="badge bg-warning text-dark">비공개</span>
+      {% endif %}
+    </div>
     <!-- 정보 -->
     <div class="d-flex flex-column align-items-end">
       <p>글쓴이:
@@ -36,7 +41,7 @@
     </div>
     <!-- 본문 -->
     <p>{{ post.content|mark }}</p>
-    <div class="text-center">
+    <div class="text-center my-3">
       <a href="{% url 'blog:index' %}">목록으로</a>
     </div>
   </div>

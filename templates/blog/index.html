@@ -19,7 +19,8 @@
           <tr>
             <th scope="row">{{ post.pk }}</th>
             <td>
-              <a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a>
+              <!-- onclick의 값이 true이면 href로 이동, false이면 이동 X -->
+              <a href="{% url 'blog:post_detail' post.pk %}" onclick="return openOrPrivate('{{ post.author }}', '{{ post.private }}');">{{ post.title }}</a>
             </td>
             <td>{{ post.author }}</td>
             <td>{{ post.pub_date|date:"DATE_FORMAT" }}</td>
@@ -95,3 +96,15 @@
       </div>
     </div>
   {% endblock content %}
+{% block script %}
+<script>
+  function openOrPrivate(author, isPrivate) {
+    if (isPrivate == 'True' && author != '{{ request.user.username }}'){
+      alert('비공개 글입니다.')
+      return false;
+    } else {
+      return true;
+    }
+  }
+</script>
+{% endblock script %}

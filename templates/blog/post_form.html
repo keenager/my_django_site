@@ -11,6 +11,8 @@
       <input type="text" name="tag" id="tag" class="form-control" value="{{ form.tag.value|default_if_none:'' }}">
       <label for="content">내용</label>
       <textarea name="content" id="content" class="form-control" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+      <input type="checkbox" id="private" name="private" value='true'>
+      <label for="private">비공개</label>
       <div class="mt-3 text-end">
         <button class="btn btn-primary">저장하기</button>
       </div>
@@ -36,6 +38,8 @@
         'preview'
         ],
     });
+    if('{{ form.private.value }}' == 'True'){
+      private.checked = true;
+    }
   </script>
-
 {% endblock script %}

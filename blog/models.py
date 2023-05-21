@@ -12,6 +12,7 @@ class BlogPost(models.Model):
     mod_date = models.DateTimeField(default=timezone.now)
     tag = models.CharField(max_length=50)
     content = models.TextField()
+    private = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.title
