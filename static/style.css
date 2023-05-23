@@ -26,11 +26,32 @@ body {
   padding-top: 16px;
   padding-right: 20px;
   margin-bottom: 30px;
+  font-family: var(--font-heading);
 }
 
 .toc ul {
-  list-style-type: none;
+  list-style-position: inside;
+}
+/* 첫번째 목차 */
+.toc > ul {
+  list-style-type: decimal;
   padding-inline-start: 2ch;
+}
+/* 두번째 이하 목차, 들여쓰기 */
+.toc > ul ul {
+  padding-left: 1rem;
+}
+/* 두번째 이하 목차, marker와 텍스 사이 간격 */
+.toc > ul ul a {
+  margin-left: -0.5rem;
+}
+/* toc 내 모든 marker */
+.toc li::marker {
+  color: var(--bs-blue);
+}
+/* toc 내 모든 링크 */
+.toc a {
+  text-decoration-line: none;
 }
 
 /* Headers */
