@@ -45,7 +45,6 @@ def index(request: HttpRequest):
 def post_detail(request, post_id):
     post = get_object_or_404(BlogPost, pk=post_id)
     if post.private and post.author.username != request.user.username:
-        print('비공개')
         return HttpResponse('<h1>비공개글입니다.</h1>')
     else:
         context = {'post': post}
@@ -57,7 +56,6 @@ def post_create(request: HttpRequest):
     if request.method == 'POST':
         form = BlogPostForm(request.POST)
         if form.is_valid():
-            print(f"private?: {form.fields['private']}")
             post: BlogPost = form.save(commit=False)
             post.author = request.user
             post.pub_date = timezone.now()
