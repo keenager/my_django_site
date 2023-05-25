@@ -2,6 +2,7 @@
 {% load blog_filter %}
 {% block content %}
   <div class="container">
+
     <!-- 메시지 -->
     {% if messages %}
       <div class="alert alert-danger my-3">
@@ -13,6 +14,7 @@
         {% endfor %}
       </div>
     {% endif %}
+
     <!-- 제목 -->
     <div class="my-3 text-center">
       <h1 style="display: inline-block">{{ post.title }}</h1>
@@ -20,6 +22,7 @@
         <span class="badge bg-warning text-dark">비공개</span>
       {% endif %}
     </div>
+    
     <!-- 정보 -->
     <div class="d-flex flex-column align-items-end">
       <p>글쓴이:
@@ -32,17 +35,35 @@
       <p>태그:
         {{ post.tag }}</p>
     </div>
-    <!-- 수정 버튼 -->
-    <div class="text-end">
-      {% if post.author == request.user %}
-        <a href="javascript:void(0)" data-uri="{% url 'blog:post_delete' post.pk %}" id="delBtn" class="btn btn-sm btn-outline-secondary mx-2">삭제</a>
-      {% endif %}
-      <a href="{% url 'blog:post_modify' post.pk %}" class="btn btn-sm btn-primary">수정</a>
-    </div>
+
     <!-- 본문 -->
     <p>{{ post.content|mark }}</p>
-    <div class="text-center my-3">
-      <a href="{% url 'blog:index' %}">목록으로</a>
+
+    <!-- Floating button -->
+    <div class="dropup">
+      <button type="button" class="btn btn-primary shadow dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-collection"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <!-- Dropdown menu links -->
+        {% if post.author == request.user %}
+          <li>
+            <a href="javascript:void(0)" data-uri="{% url 'blog:post_delete' post.pk %}" id="delBtn" class="dropdown-item">
+              <i class="bi bi-trash3"></i>
+            </a>
+          </li>
+        {% endif %}
+        <li>
+          <a href="{% url 'blog:post_modify' post.pk %}" class="dropdown-item">
+            <i class="bi bi-pen"></i>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'blog:index' %}" class="dropdown-item" href="#">
+            <i class="bi bi-list-ol"></i>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 {% endblock content %}
