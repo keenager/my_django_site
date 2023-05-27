@@ -33,7 +33,13 @@
         'heading-smaller', 'heading-bigger', '|', 
         'code', 'quote', '|', 
         'unordered-list', 'ordered-list', '|',
-        'link', 'image', 'table', '|',
+        'link', 'image', 'table',
+        {
+          name: 'footnotes',
+          action: addFootnotes,
+          className: 'fa fa-superscript',
+          title: 'Footnotes',
+        }, '|',
         'horizontal-rule', '|',
         'preview'
         ],
@@ -41,6 +47,15 @@
         link: ["[", "](){: target='_blank'}"],
       },
     });
+
+    function addFootnotes(editor){
+      var cm = editor.codemirror;
+      var pos = cm.getCursor();
+      cm.setSelection(pos, pos);
+      cm.replaceSelection("[^]");
+    }
+    
+
     if('{{ form.private.value }}' == 'True'){
       private.checked = true;
     }
