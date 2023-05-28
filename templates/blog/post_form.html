@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block head %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock head %}
 {% block content %}
   <div class="container">
     <h5 class="my-3 text-center">글쓰기</h5>
@@ -21,8 +24,6 @@
 {% endblock content %}
 
 {% block script %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script>
     var simplemde = new SimpleMDE({
