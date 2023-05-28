@@ -50,9 +50,16 @@
 
     function addFootnotes(editor){
       var cm = editor.codemirror;
-      var pos = cm.getCursor();
-      cm.setSelection(pos, pos);
-      cm.replaceSelection("[^]");
+      var doc = cm.getDoc();
+      var cursor = doc.getCursor();
+      var pos = {
+        line: cursor.line,
+        ch: cursor.ch,
+      }
+      doc.replaceRange('[^] [^]:', pos);
+      pos.ch += 2;
+      doc.setCursor(pos);
+      cm.focus();
     }
     
 
