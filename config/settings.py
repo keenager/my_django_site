@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'habit_tracker.apps.HabitTrackerConfig',
     'blog.apps.BlogConfig',
+    'chart.apps.ChartConfig',
 ]
 
 MIDDLEWARE = [

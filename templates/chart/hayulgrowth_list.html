@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container">
+    <h1>리스트</h1>
+    <ul>
+      {% for obj in object_list %}
+        <li class="d-flex">
+          <span class="mx-3">
+            {{ obj.year_month }}
+            /
+            {{ obj.height }}cm /
+            {{ obj.weight }}kg
+          </span>
+          <form action="{% url 'chart:growth_delete' obj.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="삭제">
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="text-center">
+      <a href="{% url 'chart:growth_chart' %}" class="mx-3">그래프</a>
+      <a href="{% url 'chart:growth_add' %}" class="btn btn-sm btn-primary">데이터 추가</a>
+    </div>
+  </div>
+{% endblock content %}

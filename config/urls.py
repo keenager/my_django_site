@@ -24,4 +24,5 @@ urlpatterns = [
     path('habit/', include('habit_tracker.urls')),
     path('blog/', include('blog.urls')),
     # path('public_def/', include('public_def.urls')),
+    path('chart/', include('chart.urls')),
 ]

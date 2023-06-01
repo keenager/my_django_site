@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1 class="text-center">키, 몸무게 그래프</h1>
+  <div class="my-3">
+    <canvas id="myChart"></canvas>
+  </div>
+  <div class="text-center">
+    <a href="{% url 'chart:growth_list' %}" class="mx-3">리스트</a>
+    <a href="{% url 'chart:growth_add' %}" class="btn btn-sm btn-primary">데이터 추가</a>
+  </div>
+{% endblock content %}
+{% block script %}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const ctx = document.getElementById('myChart');
+    const showChart = async () => {
+      let response = await fetch('/chart/hayul_growth/get_data/');
+      let jsonData = await response.json();
+      let growth_data = jsonData.result;
+
+      let labels = [];
+      let heights = [];
+      let weights = [];
+
+      for (let obj of growth_data) {
+        labels.push(obj.year_month);
+        heights.push(obj.height);
+        weights.push(obj.weight);
+      }
+
+      const data = {
+        labels: labels,
+        datasets: [
+          {
+            label: '키',
+            data: heights,
+            borderWidth: 1
+          }, {
+            label: '몸무게',
+            data: weights,
+            borderWidth: 1
+          }
+        ],
+      };
+      new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+    showChart();
+
+  </script>
+{% endblock script %}
