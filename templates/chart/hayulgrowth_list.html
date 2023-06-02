@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
   <div class="container">
-    <h1>리스트</h1>
+    <h1 class="text-center my-3">키,몸무게 리스트</h1>
     <ul>
       {% for obj in object_list %}
-        <li class="d-flex">
+        <li class="d-flex justify-content-center my-1">
           <span class="mx-3">
             {{ obj.year_month }}
             /
             {{ obj.height }}cm /
             {{ obj.weight }}kg
           </span>
-          <form action="{% url 'chart:growth_delete' obj.pk %}" method="post">
+          <a href="{% url 'chart:growth_update' obj.pk %}" class="btn btn-sm btn-secondary mx-1">수정</a>
+          <form onSubmit="return confirm('삭제하시겠습니까?');" action="{% url 'chart:growth_delete' obj.pk %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="삭제">
+            <input type="submit" value="삭제" class="btn btn-sm btn-danger mx-1">
           </form>
         </li>
       {% endfor %}
