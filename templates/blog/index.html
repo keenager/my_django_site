@@ -85,12 +85,16 @@
         </ul>
       </nav>
       <!-- pagination END -->
+
+      <!-- Tag -->
       <div>
         <a class="badge rounded-pill bg-secondary mx-1" href="{% url 'blog:index' %}">ALL</a>
         {% for tag in tags %}
           <a class="badge rounded-pill bg-secondary mx-1" href="{% url 'blog:index' %}?tag={{ tag }}">{{ tag }}</a>
         {% endfor %}
       </div>
+
+      <!-- 글쓰기 버튼 -->
       <div class="d-flex justify-content-end">
         <a href="{% url 'blog:post_create' %}" class="btn btn-primary">글쓰기</a>
       </div>

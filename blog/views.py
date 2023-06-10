@@ -28,10 +28,11 @@ def index(request: HttpRequest):
     page_obj = paginator.get_page(page_number)
 
     # 태그
-    tag_list = []
+    tag_list: list[str] = []
     for post in all_posts:
         tag_list += post.tag.replace(' ', '').split(',')
     tags = set(tag_list)
+    tags = sorted(tags, key=lambda tag: tag.lower())
 
     context = {
         'page_obj': page_obj,
