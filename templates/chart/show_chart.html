@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1 class="text-center">키, 몸무게 그래프</h1>
-  <div class="my-3">
-    <canvas id="myChart"></canvas>
-  </div>
-  <div class="text-center">
-    <a href="{% url 'chart:growth_list' %}" class="mx-3">리스트</a>
-    <a href="{% url 'chart:growth_add' %}" class="btn btn-sm btn-primary">데이터 추가</a>
+  <div class="container">
+    <h1 class="text-center">키, 몸무게 그래프</h1>
+    <div class="my-3">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div class="text-center">
+      <a href="{% url 'chart:growth_list' %}" class="mx-3">리스트</a>
+      <a href="{% url 'chart:growth_add' %}" class="btn btn-sm btn-primary">데이터 추가</a>
+    </div>
   </div>
 {% endblock content %}
 {% block script %}
@@ -20,43 +22,35 @@
       let jsonData = await response.json();
       let growth_data = jsonData.result;
 
-      let labels = [];
-      let heights = [];
-      let weights = [];
-
-      for (let obj of growth_data) {
-        labels.push(obj.year_month);
-        heights.push(obj.height);
-        weights.push(obj.weight);
-      }
-
       const data = {
-        labels: labels,
+        labels: growth_data.map(data => data.year_month),
         datasets: [
           {
             label: '키',
-            data: heights,
+            data: growth_data.map(data => data.height),
             borderWidth: 1
           }, {
             label: '몸무게',
-            data: weights,
+            data: growth_data.map(data => data.weight),
             borderWidth: 1
           }
-        ],
+        ]
       };
+
+      const options = {
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      };
+      
       new Chart(ctx, {
         type: 'line',
         data: data,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: false
-            }
-          }
-        }
+        options: options,
       });
     }
     showChart();
-
   </script>
 {% endblock script %}
